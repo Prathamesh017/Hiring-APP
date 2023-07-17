@@ -23,9 +23,11 @@ const companyResolvers = {
     },
     loginCompany: async (parent, args, contextValue) => {
       try {
-        // let auth = await authHandler(contextValue.token)
+
 
         let company = await companyService.loginCompany(args.companyEmail, args.companyPassword);
+
+
 
         return company;
       } catch (error) {

@@ -6,8 +6,8 @@ export type CandidateType = {
 }
 export type CompanyType = {
   id: String,
-  name: String,
-  email: String
-  description: String,
+  companyName: String,
+  companyEmail: String
+  companyDescription: String,
   token: String
 }

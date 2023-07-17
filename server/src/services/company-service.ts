@@ -44,9 +44,9 @@ class CompanyService {
 
     return {
       id: company.id,
-      name: company.companyName,
-      email: company.companyEmail,
-      description: company.companyDescription,
+      companyName: company.companyName,
+      companyEmail: company.companyEmail,
+      companyDescription: company.companyDescription,
       token: this.generateToken(company.id)
 
     }
@@ -76,11 +76,12 @@ class CompanyService {
 
 
 
+
     return {
       id: company.id,
-      name: company.companyName,
-      email: company.companyEmail,
-      description: company.companyDescription,
+      companyName: company.companyName,
+      companyEmail: company.companyEmail,
+      companyDescription: company.companyDescription,
       token: this.generateToken(company.id)
 
     }

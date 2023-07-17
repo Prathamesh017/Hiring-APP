@@ -22,7 +22,8 @@ mutation registerCandidate($name:String!,$email: String!, $password: String!){
 export const Login_Company = gql`
 mutation loginCompany($companyEmail: String!, $companyPassword:String!){
   loginCompany(companyEmail: $companyEmail, companyPassword: $companyPassword) {
-    companyEmail,
+   companyName,
+   companyDescription
 
   }
 }

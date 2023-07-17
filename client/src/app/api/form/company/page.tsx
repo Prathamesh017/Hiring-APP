@@ -7,6 +7,7 @@ import { useMutation } from '@apollo/client'
 import { Register_Company } from '@/app/graphql/mutation'
 import Loading from '../loadingSpinner'
 let regex = new RegExp('[a-z0-9]+@[a-z]+.[a-z]{2,3}')
+
 const schema = yup.object().shape({
   name: yup
     .string()
@@ -39,11 +40,13 @@ export default function App() {
   } = useForm({
     resolver: yupResolver(schema),
   })
+
   const [registerCompany, { data, loading, error }] = useMutation(
     Register_Company,
   )
+  if (data) {
+  }
   const onSubmit = (data: any) => {
-    console.log(data)
     registerCompany({
       variables: {
         companyName: data.name,
@@ -153,12 +156,14 @@ export default function App() {
                 </div>
               </div>
               <div className="flex items-center mt-4">
-                <button
-                  type="submit"
-                  className="w-full  px-2 py-1 md:px-4 md:py-2 tracking-wide text-white transition-colors duration-200 transform bg-[#01967b]  rounded-md hover:text-slate-900 cursor focus:outline-none focus:bg-purple-600"
-                >
-                  Register
-                </button>
+                <Link href={''}>
+                  <button
+                    type="submit"
+                    className="w-full  px-2 py-1 md:px-4 md:py-2 tracking-wide text-white transition-colors duration-200 transform bg-[#01967b]  rounded-md hover:text-slate-900 cursor focus:outline-none focus:bg-purple-600"
+                  >
+                    Register
+                  </button>
+                </Link>
               </div>
             </form>
             <p className="text-red-700 text-center">

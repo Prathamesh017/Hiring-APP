@@ -7,6 +7,7 @@ import { useMutation } from '@apollo/client'
 import { Login_Candidate, Login_Company } from '@/app/graphql/mutation'
 import { useSearchParams } from 'next/navigation'
 import Loading from '../loadingSpinner'
+import { useRouter } from 'next/navigation'
 
 let regex = new RegExp('[a-z0-9]+@[a-z]+.[a-z]{2,3}')
 const schema = yup.object().shape({
@@ -28,6 +29,7 @@ export default function App() {
   } = useForm({
     resolver: yupResolver(schema),
   })
+  const router = useRouter()
 
   const [
     loginUser,
@@ -41,9 +43,6 @@ export default function App() {
   const account = searchParams.get('account')
   const onSubmit = (data: any) => {
     if (account === 'company') {
-      console.log('here')
-      console.log(data.email)
-      console.log(data.password)
       loginCompany({
         variables: { companyEmail: data.email, companyPassword: data.password },
       })
@@ -53,7 +52,11 @@ export default function App() {
       })
     }
   }
-
+  if (companyData || candidateData) {
+    let data = JSON.stringify(companyData || candidateData)
+    localStorage.setItem('data', data)
+    router.push('/api/company')
+  }
   return (
     <>
       <div>

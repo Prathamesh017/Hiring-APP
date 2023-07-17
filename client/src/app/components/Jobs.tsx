@@ -1,4 +1,4 @@
-let jobs_category = [
+export let jobs_category = [
   'Frontend Development',
   'Backend Development',
   'FullStack Development',
