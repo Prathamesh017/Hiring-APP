@@ -7,6 +7,11 @@ const candidateResolvers = {
     getAllCandidates: async (parent, args) => {
       let getAllCandidates = await candidateService.getAllCandidates();
       return getAllCandidates
+    },
+
+    getCandidateData: async (parent, args) => {
+      let candidateData = await candidateService.getCandidateData(args.id);
+      return candidateData;
     }
 
   },
@@ -32,6 +37,19 @@ const candidateResolvers = {
       }
 
     },
+    updateCandidate: async (parent, args, contextValue) => {
+      try {
+
+        let { id, qualification, salary, link, description, location } = args
+        let auth = await authHandler(contextValue.token)
+        let candidate = await candidateService.updateCandidate(id, qualification, salary, link, description, location
+        )
+        return candidate
+      } catch (error) {
+        throw new GraphQLError(error.message);
+      }
+
+    }
 
   }
 

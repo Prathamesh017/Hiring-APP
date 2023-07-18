@@ -91,6 +91,56 @@ class CandidateService {
 
 
   }
+  public async updateCandidate(id: string, qualification: string, salary: string, link: string, description: string, location: string) {
+
+    if (!(id && qualification && link && description && link && salary && location)) {
+      throw new Error("Incomplete Data");
+    }
+
+    ;
+
+
+    const job = await prisma.candidate.update({
+      where: {
+        id,
+      },
+      data: {
+        qualification, link, description, salary, location
+      },
+    })
+
+    return {
+      id: job.id,
+      qualification: job.qualification,
+      link: job.link,
+      description: job.description,
+      salary: job.salary,
+      location: job.location
+
+
+
+    }
+
+
+
+
+
+
+  }
+  public async getCandidateData(id: string) {
+    const candidateData = await prisma.candidate.findUnique({
+      where: {
+        id
+      }
+    })
+    return candidateData;
+
+
+
+
+
+
+  }
   public generateToken(id: string): string {
     return jwt.sign({ id }, process.env.JWT_SECRET);
   }

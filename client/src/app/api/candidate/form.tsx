@@ -2,47 +2,41 @@
 import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { jobs_category } from '@/app/components/Jobs'
-import { Create_Job } from '@/app/graphql/mutation'
+import { Update_Job } from '@/app/graphql/mutation'
 import { useMutation } from '@apollo/client'
 import Loading from '../form/loadingSpinner'
 
 const schema = yup.object().shape({
-  title: yup
-    .string()
-    .required('Title is required')
-    .min(4, 'Title must be at least 6 characters long'),
-  category: yup.string().required(`Category is required`),
+  qualification: yup.string().required('Highest Qualification is required'),
   description: yup
     .string()
-    .required('Job Description is required')
-    .min(100, 'Job Description be at least 100 characters long')
-    .max(300, 'Job Desciption be a  maximum 300 characters long'),
-  salary: yup.string().required('Salary is required'),
+    .required('description is required')
+    .min(100, 'description be at least 100 characters long')
+    .max(300, 'desciption be a  maximum 300 characters long'),
+  link: yup.string().required(`add a link to view your profile `),
+  salary: yup.string().required('Expected Salary is required'),
   location: yup.string().required('Location is required'),
 })
 
 export default function Form() {
   const {
     register,
-    setValue,
     handleSubmit,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
   })
-
-  const [createJob, { data, loading, error }] = useMutation(Create_Job)
-  const companyData = JSON.parse(localStorage.getItem('data') as string)
+  const [updateJob, { data, loading, error }] = useMutation(Update_Job)
+  const candidate = JSON.parse(localStorage.getItem('data') as string)
 
   const onSubmit = (data: any) => {
-    createJob({
+    updateJob({
       variables: {
-        companyId: companyData.loginCompany.id,
-        title: data.title,
-        description: data.description,
-        category: data.category,
+        id: candidate.loginCandidate.id,
+        qualification: data.qualification,
         salary: data.salary,
+        link: data.link,
+        description: data.description,
         location: data.location,
       },
     })
@@ -50,9 +44,9 @@ export default function Form() {
 
   return (
     <>
-      <div className="flex flex-col md:p-4 ml-4">
+      <div className="flex flex-col md:p-4 ml-4 mt-4 md:mt-0">
         <div className="">
-          <h1 className=" text-xl md:text-xl text-[#01967b]">Post A New Job</h1>
+          <h1 className=" text-xl md:text-xl text-[#01967b]">Update Profile</h1>
           <div className=" w-11/12 md:w-full px-6 py-4 mt-6 overflow-hidden bg-white shadow-md sm:max-w-lg sm:rounded-lg">
             <form className="p-2" onSubmit={handleSubmit(onSubmit)}>
               <div>
@@ -60,16 +54,16 @@ export default function Form() {
                   htmlFor="name"
                   className="block text-sm font-medium text-gray-700 undefined"
                 >
-                  Job Title
+                  Highest Qualification
                 </label>
                 <div className="flex flex-col items-start">
                   <input
                     type="text"
-                    {...register('title')}
+                    {...register('qualification')}
                     className="block w-full mt-1  text-black border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 border border-black-700 "
                   />
                   <p className="text-red-700">
-                    {errors.title && errors.title.message}
+                    {errors.qualification && errors.qualification.message}
                   </p>
                 </div>
               </div>
@@ -79,7 +73,7 @@ export default function Form() {
                   htmlFor="password"
                   className="block text-sm font-medium text-gray-700 undefined"
                 >
-                  Job Description
+                  Description Yourself
                 </label>
                 <div className="flex flex-col items-start">
                   <textarea
@@ -96,32 +90,16 @@ export default function Form() {
                   htmlFor="password"
                   className="block text-sm font-medium text-gray-700 undefined"
                 >
-                  Category
+                  Add a Github or relevant Link
                 </label>
                 <div className="flex text-sm flex-col items-start text-slate-700">
-                  <select
-                    {...register('category')}
-                    onChange={(e) =>
-                      setValue('category', e.target.value, {
-                        shouldValidate: true,
-                      })
-                    }
-                    className="border border-black-700 w-full"
-                  >
-                    {jobs_category.map((job, index) => {
-                      return (
-                        <option
-                          className="text-slate-700"
-                          value={job}
-                          key={index}
-                        >
-                          {job}
-                        </option>
-                      )
-                    })}
-                  </select>
-                  {errors.category && (
-                    <p className="text-red-700">{errors.category.message}</p>
+                  <input
+                    type="text"
+                    {...register('link')}
+                    className="block w-full mt-1  text-black border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 border border-black-700 "
+                  />
+                  {errors.link && (
+                    <p className="text-red-700">{errors.link.message}</p>
                   )}
                 </div>
               </div>
@@ -130,7 +108,7 @@ export default function Form() {
                   htmlFor="password_confirmation"
                   className="block text-sm font-medium text-gray-700 undefined"
                 >
-                  Salary
+                  Expected Salary
                 </label>
                 <div className="flex flex-col items-start">
                   <input
@@ -149,7 +127,7 @@ export default function Form() {
                   htmlFor="password_confirmation"
                   className="block text-sm font-medium text-gray-700 undefined"
                 >
-                  Location
+                  Your Current Location
                 </label>
                 <div className="flex flex-col items-start">
                   <input
@@ -168,7 +146,7 @@ export default function Form() {
                   type="submit"
                   className="w-full  px-2 py-1 md:px-4 md:py-2 tracking-wide text-white transition-colors duration-200 transform bg-[#01967b]  rounded-md hover:text-slate-900 cursor focus:outline-none focus:bg-purple-600"
                 >
-                  Post A Job
+                  Update Profile
                 </button>
               </div>
             </form>
@@ -176,7 +154,7 @@ export default function Form() {
               {error ? error.message : ''}
             </p>
             <p className="text-green-700 text-center">
-              {data ? 'Job Posted Successfully' : ''}
+              {data ? 'Profile Updated.Refresh To See Changes' : ''}
             </p>
             <p className="text-center">{loading && <Loading></Loading>}</p>
           </div>

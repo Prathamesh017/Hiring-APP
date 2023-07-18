@@ -20,3 +20,14 @@ query GetAllJobs($companyId:String!){
 }
 }
 `
+export const Get_Candidate_Data = gql`
+query GetCandidateData($id: String!) {
+  getCandidateData(id: $id) {
+    email,
+    qualification,
+    salary,
+    link,
+    description,
+    location
+  }
+}`

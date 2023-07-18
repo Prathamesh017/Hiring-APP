@@ -55,7 +55,11 @@ export default function App() {
   if (companyData || candidateData) {
     let data = JSON.stringify(companyData || candidateData)
     localStorage.setItem('data', data)
-    router.push('/api/company')
+    if (companyData) {
+      router.push('/api/company')
+    } else {
+      router.push('/api/candidate')
+    }
   }
   return (
     <>

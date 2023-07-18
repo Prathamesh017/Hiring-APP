@@ -7,10 +7,11 @@ const httpLink = createHttpLink({
 });
 const authLink = setContext((_, { headers }) => {
   const data = JSON.parse(localStorage.getItem('data') as string);
+  let token = data?.loginCandidate.token || data?.loginCompany.token || ""
   return {
     headers: {
       ...headers,
-      authorization: data?.loginCompany ? `Bearer ${data.loginCompany.token}` : "",
+      authorization: token ? `Bearer ${token}` : "",
     }
   }
 });

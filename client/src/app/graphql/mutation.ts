@@ -2,6 +2,7 @@ import { gql } from '@apollo/client'
 export const Login_Candidate = gql`
 mutation loginCandidate($email: String!, $password:String!){
   loginCandidate(email: $email, password: $password) {
+    id,
     name,
     email,
     token
@@ -36,6 +37,7 @@ export const Register_Company = gql`
   id,
    companyEmail,
    companyName,
+   token,
    companyDescription
 
 
@@ -47,4 +49,15 @@ mutation createJob($companyId:String!,$title:String!,$description:String!,$categ
     id,
   }
 }
-`  
+`
+export const Update_Job = gql`
+ mutation UpdateCandidate($id: String!, $qualification: String!, $salary: String!, $link: String!, $description: String!, $location: String!) {
+  updateCandidate(id: $id, qualification: $qualification, salary: $salary, link: $link, description: $description, location: $location) {
+     qualification,
+     salary,
+     link,
+     description,
+     location
+ }
+}
+ `
