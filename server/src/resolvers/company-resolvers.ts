@@ -29,6 +29,8 @@ const companyResolvers = {
 
 
 
+
+
         return company;
       } catch (error) {
         throw new GraphQLError(error.message);

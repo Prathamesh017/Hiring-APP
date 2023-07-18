@@ -11,3 +11,13 @@ export type CompanyType = {
   companyDescription: String,
   token: String
 }
+export type JobType = {
+  id: String,
+  companyId: String,
+  title: String
+  description: String
+  category: String
+  salary: String
+  location: String
+  // applieadCandidates?: String[]
+}

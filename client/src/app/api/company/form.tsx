@@ -3,6 +3,9 @@ import { useForm, SubmitHandler } from 'react-hook-form'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { jobs_category } from '@/app/components/Jobs'
+import { Create_Job } from '@/app/graphql/mutation'
+import { useMutation } from '@apollo/client'
+import Loading from '../form/loadingSpinner'
 
 const schema = yup.object().shape({
   title: yup
@@ -28,10 +31,21 @@ export default function Form() {
   } = useForm({
     resolver: yupResolver(schema),
   })
-  
-  
+
+  const [createJob, { data, loading, error }] = useMutation(Create_Job)
+  const companyData = JSON.parse(localStorage.getItem('data') as string)
+
   const onSubmit = (data: any) => {
-  
+    createJob({
+      variables: {
+        companyId: companyData.loginCompany.id,
+        title: data.title,
+        description: data.description,
+        category: data.category,
+        salary: data.salary,
+        location: data.location,
+      },
+    })
   }
 
   return (
@@ -52,11 +66,10 @@ export default function Form() {
                   <input
                     type="text"
                     {...register('title')}
-                    name="name"
                     className="block w-full mt-1  text-black border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 border border-black-700 "
                   />
                   <p className="text-red-700">
-                    {errors.title && <p>{errors.title.message}</p>}
+                    {errors.title && errors.title.message}
                   </p>
                 </div>
               </div>
@@ -140,7 +153,7 @@ export default function Form() {
                 </label>
                 <div className="flex flex-col items-start">
                   <input
-                    type="number"
+                    type="text"
                     className="block w-full text-slate-900 mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 border border-black-700 "
                     {...register('location')}
                   />
@@ -159,13 +172,13 @@ export default function Form() {
                 </button>
               </div>
             </form>
-            {/* <p className="text-red-700 text-center">
+            <p className="text-red-700 text-center">
               {error ? error.message : ''}
-            </p> */}
-            {/* <p className="text-green-700 text-center">
-              {data ? 'Registration Successfully' : ''}
-            </p> */}
-            {/* <p className="text-center">{loading && <Loading></Loading>}</p> */}
+            </p>
+            <p className="text-green-700 text-center">
+              {data ? 'Job Posted Successfully' : ''}
+            </p>
+            <p className="text-center">{loading && <Loading></Loading>}</p>
           </div>
         </div>
       </div>

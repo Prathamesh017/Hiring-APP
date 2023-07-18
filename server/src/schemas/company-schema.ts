@@ -8,7 +8,7 @@ const companytypeDefs = gql`
   companyEmail : String
   companyPassword   : String
   companyDescription: String
-
+  token:String
   
   }
   

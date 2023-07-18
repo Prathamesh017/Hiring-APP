@@ -22,8 +22,10 @@ mutation registerCandidate($name:String!,$email: String!, $password: String!){
 export const Login_Company = gql`
 mutation loginCompany($companyEmail: String!, $companyPassword:String!){
   loginCompany(companyEmail: $companyEmail, companyPassword: $companyPassword) {
+   id,
    companyName,
    companyDescription
+   token,
 
   }
 }
@@ -31,8 +33,18 @@ mutation loginCompany($companyEmail: String!, $companyPassword:String!){
 export const Register_Company = gql`
  mutation registerCompany($companyName:String!,$companyEmail:String!,$companyPassword:String!,$companyDescription:String!){
  registerCompany(companyName:$companyName,companyEmail:$companyEmail,companyPassword:$companyPassword,companyDescription:$companyDescription){
+  id,
    companyEmail,
    companyName,
    companyDescription
+
+
    }
 }`
+export const Create_Job = gql`
+mutation createJob($companyId:String!,$title:String!,$description:String!,$category: String,$salary: String!,$location:String!){
+  createJob(companyId:$companyId,title:$title,description:$description,category:$category,salary: $salary,location: $location){
+    id,
+  }
+}
+`  

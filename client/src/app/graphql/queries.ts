@@ -8,3 +8,15 @@ export const Get_Candidates = gql`
   }
   }
 `
+export const Get_Jobs = gql`
+query GetAllJobs($companyId:String!){
+  getAllJobs(companyId:$companyId){
+  id,
+  title,
+  description,
+  category,
+  salary,
+  location,
+}
+}
+`

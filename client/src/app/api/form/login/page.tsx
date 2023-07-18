@@ -109,7 +109,6 @@ export default function App() {
                 </button>
               </div>
             </form>
-            <p>{}</p>
             <p className="text-red-700 text-center">
               {((candidateError || companyeError) && candidateError?.message) ||
                 companyeError?.message}

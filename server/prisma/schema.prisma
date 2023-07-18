@@ -27,4 +27,17 @@ model Company {
   companyDescription String
   createdAt          DateTime @default(now())
   updatedAt          DateTime @updatedAt
+  Job                Job[]
+}
+
+model Job {
+  id                 String   @id @default(auto()) @map("_id") @db.ObjectId
+  company            Company  @relation(fields: [companyId], references: [id])
+  companyId          String   @db.ObjectId
+  title              String
+  description        String
+  category           String
+  salary             String
+  location           String
+  applieadCandidates String[]
 }
