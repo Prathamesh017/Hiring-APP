@@ -19,5 +19,4 @@ export type JobType = {
   category: String
   salary: String
   location: String
-  // applieadCandidates?: String[]
 }

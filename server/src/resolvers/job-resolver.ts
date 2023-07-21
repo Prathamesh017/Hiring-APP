@@ -8,6 +8,11 @@ const jobResolvers = {
       let auth = await authHandler(contextValue.token)
       let alljobs = await jobService.getAllJobs(args.companyId);
       return alljobs;
+    },
+    getAllAvailableJobs: async (parent, args, contextValue) => {
+      let auth = await authHandler(contextValue.token)
+      let alljobs = await jobService.getAllAvailableJobs();
+      return alljobs;
     }
 
   },
@@ -24,18 +29,7 @@ const jobResolvers = {
       }
 
     },
-    // updateJob: async (parent, args, contextValue) => {
-    //   try {
 
-    //     let { id, companyId, title, description, category, salary, location } = args;
-    //     let auth = await authHandler(contextValue.token)
-    //     let job = await jobService.updateJob(id, companyId, title, description, category, salary, location);
-    //     return job;
-    //   } catch (error) {
-    //     throw new GraphQLError(error.message);
-    //   }
-
-    // },
     deleteJob: async (parent, args, contextValue) => {
       try {
         let { id } = args;

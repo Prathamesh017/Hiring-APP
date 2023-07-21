@@ -2,18 +2,22 @@
 import React from 'react'
 import { useQuery } from '@apollo/client'
 import { Get_Jobs } from '@/app/graphql/queries'
+import Loading from '../../form/loadingSpinner'
 function JobPosted() {
-  const companyData = JSON.parse(localStorage.getItem('data') as string)
+  let companyData: any
+  if (typeof window !== 'undefined') {
+    companyData = JSON.parse(localStorage.getItem('data') as string)
+  }
 
   const { loading, error, data } = useQuery(Get_Jobs, {
-    variables: { companyId: companyData.loginCompany.id },
-    // pollInterval: 5000,
+    variables: { companyId: companyData?.loginCompany?.id },
+    fetchPolicy: 'no-cache',
   })
 
   return (
     <div className="job-container w-full p-4 mt-2  md:mt-10">
       <div className="grid  grid-cols-1 gap-4 md:grid-cols-3 mt-10">
-        {data ? (
+        {data && data.getAllJobs.length > 0 ? (
           data.getAllJobs.map((job: any) => {
             return (
               <div key={job.id}>
@@ -34,7 +38,7 @@ function JobPosted() {
             )
           })
         ) : (
-          <p>{loading ? 'Loading' : 'No Items to Show'}</p>
+          <p>{loading ? <Loading></Loading> : 'No Jobs Posted'}</p>
         )}
       </div>
     </div>

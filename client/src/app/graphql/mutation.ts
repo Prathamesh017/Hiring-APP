@@ -61,3 +61,10 @@ export const Update_Job = gql`
  }
 }
  `
+
+export const Create_Appliction = gql` 
+mutation CreateApplication($companyId: String!, $jobId: String!, $candidateId: String!) {
+  createApplication(companyId: $companyId, jobId: $jobId, candidateId: $candidateId) {
+    id,
+  }
+}`

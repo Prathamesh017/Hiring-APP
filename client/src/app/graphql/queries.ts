@@ -31,3 +31,49 @@ query GetCandidateData($id: String!) {
     location
   }
 }`
+export const GET_ALL_AVAILABLE_JOBS = gql`
+query GetAllAvailableJobs {
+  getAllAvailableJobs {
+    id,
+  title,
+  description,
+  category,
+  salary,
+  companyId
+  location,
+  company {
+     companyName 
+     companyEmail 
+    }
+  
+  }
+}`
+
+export const GET_APPLICATIONS_BY_CANDIDATE_ID = gql`
+query GetApplicationsByCandidateId($Id: String!) {
+  getApplicationsByCandidateId(candidateId: $Id) {
+     id,
+   jobId,
+   candidateId,   
+  }
+}`
+export const GET_APPLICATIONS_BY_COMPANY_ID = gql`
+query GetApplicationsByCompanyId($companyId: String!) {
+  getApplicationsByCompanyId(companyId: $companyId) {
+    id,
+    candidateId
+    candidate {
+      name,
+      qualification
+      email,
+      location,
+      link,
+      salary,
+      description,
+    }
+    jobId,
+    job{
+      title,
+    }
+  }
+}`

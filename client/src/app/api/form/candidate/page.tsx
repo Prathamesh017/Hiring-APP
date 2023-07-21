@@ -142,7 +142,7 @@ export default function App() {
               {error ? error.message : ''}
             </p>
             <p className="text-green-700 text-center">
-              {data ? 'Registration Successfully' : ''}
+              {data ? 'Registration Successfully .Login Now' : ''}
             </p>
             <p className="text-center">{loading && <Loading></Loading>}</p>
             <div className="flex flex-col justify-start md:flex-row md:justify-between mt-4 text-slate-700 p-2">

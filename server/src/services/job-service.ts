@@ -20,7 +20,21 @@ class JobService {
 
 
   }
+  public async getAllAvailableJobs() {
+    const jobs = await prisma.job.findMany({
+      include: {
+        company: true,
+      },
+    })
 
+    return jobs;
+
+
+
+
+
+
+  }
   public async createJob(companyId: string, title: string, description: string, category: string, salary: string, location: string): Promise<JobType> {
 
     if (!(companyId && title && description && category && salary && location)) {

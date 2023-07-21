@@ -2,8 +2,12 @@
 import React from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
+
 export function Header() {
-  let data = JSON.parse(localStorage.getItem('data') as string)
+  let data
+  if (typeof window !== 'undefined') {
+    data = JSON.parse(localStorage.getItem('data') as string)
+  }
 
   const router = useRouter()
   const logout = () => {
@@ -40,7 +44,9 @@ export function Header() {
           </Link>
         </div>
         <div>
-          <button className="hover:text-slate-700">Job Responses</button>
+          <Link href="/api/company/responses">
+            <button className="hover:text-slate-700">Job Responses</button>
+          </Link>
         </div>
       </div>
       <div className="logout-button  justify-self-end">

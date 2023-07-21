@@ -33,7 +33,10 @@ export default function Form() {
   })
 
   const [createJob, { data, loading, error }] = useMutation(Create_Job)
-  const companyData = JSON.parse(localStorage.getItem('data') as string)
+  let companyData: any
+  if (typeof window !== 'undefined') {
+    companyData = JSON.parse(localStorage.getItem('data') as string)
+  }
 
   const onSubmit = (data: any) => {
     createJob({

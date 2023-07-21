@@ -6,7 +6,6 @@ export function Header() {
   let data = JSON.parse(localStorage.getItem('data') as string)
   const router = useRouter()
 
-  //functions
   const logout = () => {
     localStorage.removeItem('data')
     router.push('/')
@@ -36,12 +35,9 @@ export function Header() {
           </Link>
         </div>
         <div>
-          <Link href="/api/company/post">
+          <Link href="/api/candidate/jobs">
             <button className="hover:text-slate-700">Jobs</button>
           </Link>
-        </div>
-        <div>
-          <button className="hover:text-slate-700">Applied Jobs</button>
         </div>
       </div>
       <div className="logout-button  justify-self-end">

@@ -27,7 +27,7 @@ const candidateResolvers = {
     },
     loginCandidate: async (parent, args, contextValue) => {
       try {
-        // let auth = await authHandler(contextValue.token)
+
 
         let candidate = await candidateService.loginCandidate(args.email, args.password);
 

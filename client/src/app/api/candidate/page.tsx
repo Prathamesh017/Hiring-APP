@@ -1,14 +1,13 @@
 'use client'
-import React, { useReducer } from 'react'
+import React from 'react'
 import Form from './form'
 import { Get_Candidate_Data } from '@/app/graphql/queries'
 import { useQuery } from '@apollo/client'
+import Loading from '../form/loadingSpinner'
 function Page() {
-  // const [loggedUser,setLoggesUser]=useReducer();
   let data = JSON.parse(localStorage.getItem('data') as string)
   const { loading, error, data: candidateData } = useQuery(Get_Candidate_Data, {
     variables: { id: data.loginCandidate.id },
-    // pollInterval: 5000,
   })
 
   return (
@@ -32,7 +31,7 @@ function Page() {
               </p>
               <div className="flex w-full justify-between">
                 <p>
-                  Expected Salary:
+                  Expected Salary: &#8377;
                   <span className="text-[#01967b]">
                     {candidateData.getCandidateData.salary}
                   </span>
@@ -46,9 +45,14 @@ function Page() {
               </div>
             </>
           ) : (
-            <p>
-              No Profile .
-              <span className="text-[#01967B]">Please Update Profile </span>
+            <p className="text-center">
+              {loading ? (
+                <Loading></Loading>
+              ) : (
+                <span className="text-[#01967b]">
+                  No Profile Please Update Profile
+                </span>
+              )}
             </p>
           )}
         </div>

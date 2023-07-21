@@ -7,8 +7,10 @@ import JobPosted from './post/page'
 
 function Page() {
   const [showSideBar, setShowSidebar] = useState(false)
-
-  const data = JSON.parse(localStorage.getItem('data') as string)
+  let data
+  if (typeof window !== 'undefined') {
+    data = JSON.parse(localStorage.getItem('data') as string)
+  }
 
   const router = useRouter()
   const logout = () => {

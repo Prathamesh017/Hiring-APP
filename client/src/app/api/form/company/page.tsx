@@ -44,9 +44,9 @@ export default function App() {
   const [registerCompany, { data, loading, error }] = useMutation(
     Register_Company,
   )
-  if (data) {
-  }
+
   const onSubmit = (data: any) => {
+    
     registerCompany({
       variables: {
         companyName: data.name,
@@ -62,7 +62,7 @@ export default function App() {
       <div>
         <div className="flex flex-col items-center min-h-screen pt-6 sm:justify-center sm:pt-0">
           <h1 className=" text-xl md:text-3xl text-[#01967b]">
-            Register Company
+            Company Register
           </h1>
           <div className=" w-3/4 md:w-full px-6 py-4 mt-6 overflow-hidden bg-white shadow-md sm:max-w-lg sm:rounded-lg">
             <form className="p-2" onSubmit={handleSubmit(onSubmit)}>
@@ -71,36 +71,32 @@ export default function App() {
                   htmlFor="name"
                   className="block text-sm font-medium text-gray-700 undefined"
                 >
-                  Company Name
+                  Name
                 </label>
                 <div className="flex flex-col items-start">
                   <input
                     type="text"
                     {...register('name')}
                     name="name"
-                    className="block w-full mt-1  text-black border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 border border-black-700 "
+                    className="block w-full mt-1  text-black border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 border border-black-700 border border-black-700 "
                   />
                   <p className="text-red-700">
-                    {errors.name && <p>{errors.name.message}</p>}
+                    {errors.name && <span>{errors.name.message}</span>}
                   </p>
                 </div>
               </div>
-
-              <div>
-                <label
-                  htmlFor="description"
-                  className="block text-sm font-medium text-gray-700 undefined "
-                >
-                  Describe your Company
+              <div className="mt-4">
+                <label className="block text-sm font-medium text-gray-700 undefined">
+                  Short Desciption About Your Company
                 </label>
                 <div className="flex flex-col items-start">
                   <textarea
                     {...register('description')}
                     className="block w-full mt-1  text-black border border-black-700 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 border border-black-700 "
                   />
-                  <p className="text-red-700">
-                    {errors.description && <p>{errors.description.message}</p>}
-                  </p>
+                  {errors.description && (
+                    <p className="text-red-700">{errors.description.message}</p>
+                  )}
                 </div>
               </div>
               <div className="mt-4">
@@ -156,21 +152,19 @@ export default function App() {
                 </div>
               </div>
               <div className="flex items-center mt-4">
-                <Link href={''}>
-                  <button
-                    type="submit"
-                    className="w-full  px-2 py-1 md:px-4 md:py-2 tracking-wide text-white transition-colors duration-200 transform bg-[#01967b]  rounded-md hover:text-slate-900 cursor focus:outline-none focus:bg-purple-600"
-                  >
-                    Register
-                  </button>
-                </Link>
+                <button
+                  type="submit"
+                  className="w-full  px-2 py-1 md:px-4 md:py-2 tracking-wide text-white transition-colors duration-200 transform bg-[#01967b]  rounded-md hover:text-slate-900 cursor focus:outline-none focus:bg-purple-600"
+                >
+                  Register
+                </button>
               </div>
             </form>
             <p className="text-red-700 text-center">
               {error ? error.message : ''}
             </p>
             <p className="text-green-700 text-center">
-              {data ? 'Registration Successfully' : ''}
+              {data ? 'Registration Successfully.Login Now' : ''}
             </p>
             <p className="text-center">{loading && <Loading></Loading>}</p>
             <div className="flex flex-col justify-start md:flex-row md:justify-between mt-4 text-slate-700 p-2">
