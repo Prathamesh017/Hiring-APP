@@ -35,7 +35,7 @@ export default function Form() {
   const onSubmit = (data: any) => {
     updateJob({
       variables: {
-        id: candidate?.loginCandidate?.id,
+        id: candidate?.loginCandidate ? candidate?.loginCandidate?.id : '',
         qualification: data.qualification,
         salary: data.salary,
         link: data.link,

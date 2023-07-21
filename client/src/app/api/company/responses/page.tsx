@@ -10,7 +10,7 @@ function JobPosted() {
   }
 
   const { loading, error, data } = useQuery(GET_APPLICATIONS_BY_COMPANY_ID, {
-    variables: { companyId: companyData.loginCompany.id },
+    variables: { companyId: companyData?.loginCompany?.id },
   })
   const redirectToGmail = (email: string) => {
     const encodedEmail = encodeURIComponent(email)

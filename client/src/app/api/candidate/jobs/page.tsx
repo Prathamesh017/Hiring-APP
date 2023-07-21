@@ -15,7 +15,11 @@ function JobPosted() {
   const [applicationId, setApplicationId] = useState<String>('')
   let appliedJobs: String[] = []
   const { loading, error, data } = useQuery(GET_ALL_AVAILABLE_JOBS, {
-    variables: { candidateId: candidateData.loginCandidate.id },
+    variables: {
+      candidateId: candidateData?.loginCandidate
+        ? candidateData.loginCandidate.id
+        : '',
+    },
   })
   const {
     loading: getApplicationLoading,
@@ -23,10 +27,14 @@ function JobPosted() {
     data: getApplicationData,
     refetch,
   } = useQuery(GET_APPLICATIONS_BY_CANDIDATE_ID, {
-    variables: { Id: candidateData.loginCandidate.id },
+    variables: {
+      Id: candidateData?.loginCandidate ? candidateData.loginCandidate?.id : '',
+    },
   })
   if (getApplicationData) {
-    refetch({ Id: candidateData.loginCandidate.id })
+    refetch({
+      Id: candidateData?.loginCandidate ? candidateData.loginCandidate?.id : '',
+    })
     appliedJobs = getApplicationData.getApplicationsByCandidateId.map(
       (application: any) => {
         return application.jobId
@@ -45,7 +53,9 @@ function JobPosted() {
   const applyForJobs = (jobId: string, companyId: string) => {
     createApplication({
       variables: {
-        candidateId: candidateData.loginCandidate.id,
+        candidateId: candidateData?.loginCandidate
+          ? candidateData.loginCandidate.id
+          : '',
         jobId,
         companyId,
       },
