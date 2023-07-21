@@ -9,4 +9,5 @@ Demo - https://hiring-prlfi89wg-prathamesh017.vercel.app/
 Steps to Run Locally
 
 cd client
+
 npm run dev
