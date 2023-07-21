@@ -27,12 +27,15 @@ export default function Form() {
     resolver: yupResolver(schema),
   })
   const [updateJob, { data, loading, error }] = useMutation(Update_Job)
-  const candidate = JSON.parse(localStorage.getItem('data') as string)
+  let candidate: any
+  if (typeof window !== 'undefined') {
+    candidate = JSON.parse(localStorage.getItem('data') as string)
+  }
 
   const onSubmit = (data: any) => {
     updateJob({
       variables: {
-        id: candidate.loginCandidate.id,
+        id: candidate?.loginCandidate?.id,
         qualification: data.qualification,
         salary: data.salary,
         link: data.link,

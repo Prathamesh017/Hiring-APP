@@ -5,9 +5,12 @@ import { Get_Candidate_Data } from '@/app/graphql/queries'
 import { useQuery } from '@apollo/client'
 import Loading from '../form/loadingSpinner'
 function Page() {
-  let data = JSON.parse(localStorage.getItem('data') as string)
+  let data
+  if (typeof window !== 'undefined') {
+    data = JSON.parse(localStorage.getItem('data') as string)
+  }
   const { loading, error, data: candidateData } = useQuery(Get_Candidate_Data, {
-    variables: { id: data.loginCandidate.id },
+    variables: { id: data?.loginCandidate?.id },
   })
 
   return (

@@ -8,7 +8,10 @@ import {
 import { Create_Appliction } from '@/app/graphql/mutation'
 import Loading from '../../form/loadingSpinner'
 function JobPosted() {
-  const candidateData = JSON.parse(localStorage.getItem('data') as string)
+  let candidateData: any
+  if (typeof window !== 'undefined') {
+    candidateData = JSON.parse(localStorage.getItem('data') as string)
+  }
   const [applicationId, setApplicationId] = useState<String>('')
   let appliedJobs: String[] = []
   const { loading, error, data } = useQuery(GET_ALL_AVAILABLE_JOBS, {

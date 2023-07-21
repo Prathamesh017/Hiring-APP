@@ -8,7 +8,10 @@ const httpLink = createHttpLink({
   // Replace with your GraphQL API endpoint
 });
 const authLink = setContext((_, { headers }) => {
-  const data = JSON.parse(localStorage.getItem('data') as string);
+  let data;
+  if (typeof window !== 'undefined') {
+    data = JSON.parse(localStorage.getItem('data') as string);
+  }
   let token = data?.loginCandidate?.token || data?.loginCompany?.token || ""
   return {
     headers: {

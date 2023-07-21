@@ -3,7 +3,11 @@ import React from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 export function Header() {
-  let data = JSON.parse(localStorage.getItem('data') as string)
+  let data
+  if (typeof window !== 'undefined') {
+    data = JSON.parse(localStorage.getItem('data') as string)
+  }
+
   const router = useRouter()
 
   const logout = () => {
